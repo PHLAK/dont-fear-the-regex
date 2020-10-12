@@ -5,9 +5,9 @@ mix.webpackConfig({
     watchOptions: { ignored: ['node_modules', 'app/vendor'] }
 });
 
-mix.js('src/js/slides.js', 'dist/');
+mix.js('src/js/deck.js', 'dist/');
 
-mix.sass('src/scss/slides.scss', 'dist/').options({
+mix.sass('src/scss/deck.scss', 'dist/').options({
     processCssUrls: false,
     postCss: [tailwindcss('tailwind.config.js')],
 });

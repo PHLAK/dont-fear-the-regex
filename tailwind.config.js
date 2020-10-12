@@ -1,29 +1,24 @@
 module.exports = {
     future: {
         removeDeprecatedGapUtilities: true,
-        purgeLayersByDefault: true
+        purgeLayersByDefault: true,
+        standardFontWeights: true,
     },
-    purge: [],
+    purge: [
+        "./index.html",
+        "./src/js/**/*.js",
+        "./src/scss/**/*.scss"
+    ],
     theme: {
         extend: {
+            backgroundColor: {
+                "ocean-dark": "#2B303B"
+            },
             fontFamily: {
-                mono: [
-                    "Source Code Pro",
-                    "Menlo",
-                    "Monaco",
-                    "Consolas",
-                    '"Liberation Mono"',
-                    '"Courier New"',
-                    "monospace"
-                ],
+                mono: ["Source Code Pro", "Ubuntu Mono", "monospace"],
                 sans: [
                     "Montserrat",
-                    "-apple-system",
-                    "BlinkMacSystemFont",
-                    '"Segoe UI"',
                     "Roboto",
-                    '"Helvetica Neue"',
-                    "Arial",
                     '"Noto Sans"',
                     "sans-serif",
                     '"Apple Color Emoji"',

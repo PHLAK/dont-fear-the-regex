@@ -11,14 +11,15 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "dependencies": {
-        "reveal.js": "^4.0.2"
+        "highlight.js": "^10.3.1",
+        "reveal.js": "^4.1.0"
     },
     "devDependencies": {
         "cross-env": "^7.0.2",
-        "laravel-mix": "^5.0.6",
+        "laravel-mix": "^5.0.7",
         "sass": "^1.27.0",
         "sass-loader": "^8.0.2",
-        "tailwindcss": "^1.8.12",
+        "tailwindcss": "^1.9.5",
         "vue-template-compiler": "^2.6.12"
     }
 }

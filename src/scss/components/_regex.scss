@@ -1,0 +1,13 @@
+regex {
+    @apply font-mono leading-normal text-white inline-block whitespace-normal bg-blue-800 rounded shadow mx-1 px-2 py-1;
+
+    &:before {
+        content: "/";
+        @apply text-blue-700;
+    }
+
+    &:after {
+        content: "/" attr(data-modifiers);
+        @apply text-blue-700;
+    }
+}

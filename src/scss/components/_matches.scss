@@ -1,0 +1,7 @@
+yes {
+    @apply font-mono leading-normal text-white inline-block bg-green-800 rounded shadow m-1 px-2 py-1;
+}
+
+no {
+    @apply font-mono leading-normal inline-block bg-red-800 rounded shadow m-1 px-2 py-1;
+}

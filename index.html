@@ -3,26 +3,1059 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Presentation Title</title>
+<title>Don't Fear the RegEx</title>
 
-<link rel="stylesheet" href="dist/slides.css">
+<link rel="stylesheet" href="dist/deck.css">
 
 <div class="reveal bg-gray-800 text-gray-100">
     <div class="slides">
         <section>
             <h1 class="mb-8">
-                Hello World!
+                Don't Fear the RegEx
             </h1>
 
-            <h3>
-                Some subtext will go here...
-            </h3>
+            <p>
+                Or how I learned to stop worrying and love the<br>
+                <regex>[Rr]eg(ular)? ?[Ee]xp?(ression)?</regex>
+            </p>
         </section>
 
         <section>
-            <p>Some text here...</p>
+            <div class="flex justify-between items-center">
+                <div class="w-64 fragment" data-fragment-index="1">
+                    <img src="images/twitter.svg" alt="Twitter" class="w-full">
+                </div>
+
+                <div class="w-2/5">
+                    <img src="images/chris.jpg" alt="Chris Kankiewicz" class="rounded-full shdow w-full" >
+                </div>
+
+                <div class="w-64 fragment" data-fragment-index="2">
+                    <img src="images/octocat.png" alt="Octocat" class="w-full">
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <p class="w-64 fragment" data-fragment-index="1">@PHLAK</p>
+                <h2 class="w-2/5">Chris Kankiewicz</h2>
+                <p class="w-64 fragment" data-fragment-index="2">PHLAK</p>
+            </div>
+        </section>
+
+        <section>
+            <section>
+                <h1>Definition</h1>
+            </section>
+
+            <section>
+                <blockquote>
+                    <p>
+                        A regular expression, or "regex" for short,<br>
+                        is a set of literal and/or meta characters<br>
+                        that compose a search pattern<br>
+                        for matching strings.
+                    </p>
+                </blockquote>
+            </section>
+
+            <section>
+                <img src="images/confused.gif" class="rounded-lg shadow mx-auto w-2/3">
+            </section>
+
+            <section>
+                <img src="images/dont-panic.png" class="mx-auto w-2/3">
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Syntax</h1>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Delimiters
+
+                    A regular expression pattern must be enclosed by matching delimiters.
+
+                    Delimiters can be any character that is NOT alphanumeric, a backslash or whitespace.
+                </textarea>
+            </section>
+
+            <section>
+                <div class="flex justify-around items-center">
+                    <code class="text-4xl fragment" data-fragment-index="1"># ... #</code>
+                    <regex class="text-6xl"> ... </regex>
+                    <code class="text-4xl fragment" data-fragment-index="2">@ ... @</code>
+                </div>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Modifiers
+
+                    Modifiers (or flags) may be added after the closing
+                    delimiter<br>
+                    to change the functionality of the regular
+                    expression.
+
+                    | Modifier | Definition |
+                    | -------- | ---------- |
+                    | `i` | Make the complete pattern case insensitive |
+                    | `m` | Treat each line as individual lines |
+
+                    <p class="text-base">
+                        <a href="https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php" target="_blank">
+                            https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php
+                        </a>
+                    </p>
+                </textarea>
+            </section>
+
+            <section>
+                <div class="flex justify-around items-center flex-wrap">
+                    <regex class="text-6xl" data-modifiers="i"> ... </regex>
+                    <regex class="text-6xl" data-modifiers="m"> ... </regex>
+                    <regex class="text-6xl" data-modifiers="im"> ... </regex>
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Patterns</h1>
+            </section>
+
+            <section>
+                <h2>Literal Text</h2>
+
+                <p>Match one or more literal charaters</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>a</regex></td>
+                            <td><yes>a</yes> <yes>face</yes></td>
+                            <td><no>A</no> <no>b</no> <no>3</no> <no>!</no> <no>foo</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>bart</regex></td>
+                            <td><yes>bart</yes> <yes>Slartibartfast</yes></td>
+                            <td><no>Bart</no> <no>lisa</no> <no>123</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>42</regex></td>
+                            <td><yes>42</yes> <yes>134237</yes></td>
+                            <td><no>1337</no> <no>24</no> <no>asdf</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>K-2SO</regex></td>
+                            <td><yes>K-2SO</yes></td>
+                            <td><no>C-3PO</no> <no>R2-D2</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Non-printable Characters
+
+                    | Symbol | Character       |
+                    | ------ | --------------- |
+                    | `\t`   | Tab             |
+                    | `\r`   | Carriage Return |
+                    | `\n`   | Line Feed       |
+
+                    <p class="text-base">
+                        <a href="https://www.php.net/manual/en/regexp.reference.escape.php" target="_blank">
+                            https://www.php.net/manual/en/regexp.reference.escape.php
+                        </a>
+                    </p>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Meta Characters
+
+                    `\` `^` `$` `.` `[` `]` `|` `(` `)` `?` `*` `+` `{` `}`
+
+                    <p class="text-base">
+                        <a href="https://www.php.net/manual/en/regexp.reference.meta.php" target="_blank">
+                            https://www.php.net/manual/en/regexp.reference.meta.php
+                        </a>
+                    </p>
+                </textarea>
+            </section>
+
+            <section>
+                <h2>Dot</h2>
+
+                <p>Match any single character (except newline)</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>.</regex></td>
+                            <td><yes>a</yes> <yes>b</yes> <yes>C</yes> <yes>D</yes> <yes>1</yes> <yes>2</yes> <yes>@</yes> <yes>&</yes></td>
+                            <td><no>\r</no>
+                            <no>\n</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section >
+                <h2>Alternation</h2>
+
+                <p>Matches the first complete pattern from left to right</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>arthur|ford|zaphod</regex></td>
+                            <td><yes>arthur</yes><yes>ford</yes><yes>zaphod</yes></td>
+                            <td><no>marvin</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>cat|dog food</regex></td>
+                            <td><yes>cat</yes> <yes>dog food</yes></td>
+                            <td><no>cat food</no</td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>(cat|dog) food</regex></td>
+                            <td><yes>cat food</yes> <yes>dog food</yes></td>
+                            <td><no>hampster food</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Set</h2>
+
+                <p>Match any character in a group or range</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>[Ab3]</regex></td>
+                            <td><yes>A</yes> <yes>b</yes> <yes>3</yes></td>
+                            <td><no>a</no> <no>B</no> <no>4</no></td>
+                        </tr>
+
+                        <tr class="fragment" data-fragment-index="2">
+                            <td><regex>[0-9]</regex></td>
+                            <td><yes>0</yes> <yes>1</yes> <yes>2</yes>  ... <yes>9</yes></td>
+                            <td> <no>a</no> <no>b</no> <no>C</no> <no>D</no></td>
+                        </tr>
+
+                        <tr class="fragment" data-fragment-index="2">
+                            <td><regex>[a-z]</regex></td>
+                            <td><yes>a</yes> <yes>b</yes> <yes>c</yes> ... <yes>z</yes></td>
+                            <td><no>A</no> <no>B</no> <no>C</no> <no>1</no> <no>2</no> <no>3</no></td>
+                        </tr>
+
+                        <tr class="fragment" data-fragment-index="2">
+                            <td><regex>[A-Z]</regex></td>
+                            <td><yes>A</yes> <yes>B</yes> <yes>C</yes> ... <yes>Z</yes></td>
+                            <td><no>a</no> <no>b</no> <no>c</no> <no>1</no> <no>2</no> <no>3</no></td>
+                        </tr>
+
+                        <tr class="fragment" data-fragment-index="3">
+                            <td><regex>gr[ae]y</regex></td>
+                            <td><yes>gray</yes> <yes>grey</yes></td>
+                            <td><no>groy</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Negated Set</h2>
+
+                <p>Match none of the characters in a group or range</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>[^Abc]</regex></td>
+                            <td><yes>a</yes> <yes>B</yes> <yes>C</yes> <yes>d</yes> <yes>E</yes></td>
+                            <td><no>A</no> <no>b</no> <no>c</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>[^0-9]</regex></td>
+                            <td><yes>a</yes> <yes>b</yes> <yes>c</yes></td>
+                            <td><no>0</no> <no>1</no> <no>2</no> ... <no>9</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>[^Ff]ool</regex></td>
+                            <td><yes>cool</yes> <yes>pool</yes> <yes>Tool</yes></td>
+                            <td><no>Fool</no> <no>fool</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Anchors</h2>
+
+                <p>Match the start or end of a string</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>^foo</regex></td>
+                            <td><yes>foo</yes> <yes>foolish</yes> <yes>football</yes></td>
+                            <td><no>tomfoolery</no> <no>buffoon</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>bar$</regex></td>
+                            <td><yes>bar</yes> <yes>sandbar</yes> <yes>taskbar</yes></td>
+                            <td><no>bartender</no> <no>embark</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>^art$</regex></td>
+                            <td><yes>art</yes></td>
+                            <td><no>artistic</no> <no>dart</no> <no>particle</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Word Boundry</h2>
+
+                <p>Match a position between a word character and non-word character</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>\bfoo</regex></td>
+                            <td><yes>foo</yes> <yes>football</yes></td>
+                            <td><no>tomfoolery</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>bar\b</regex></td>
+                            <td><yes>bar</yes> <yes>foo-bar</yes></td>
+                            <td><no>bartender</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>\bbaz\b</regex></td>
+                            <td><yes>baz</yes> <yes>foo baz bar</yes></td>
+                            <td><no>bazooka</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Shorthand Character Classes
+
+                    | Symbol | Definition | Example |
+                    | ------ | ---------- | ------- |
+                    | `\d`   | Any decimal digit | <regex>[0-9]</regex> |
+                    | `\h`   | Any <i>horizontal</i> whitespace character | <regex>[ \t]</regex>* |
+                    | `\s`   | Any whitespace character | <regex>[ \t\r\n]</regex> |
+                    | `\v`   | Any <i>vertical</i> whitespace character | <regex>[\n\r]</regex>* |
+                    | `\w`   | Any (ASCII) "word" character | <regex>[A-Za-z0-9_]</regex> |
+
+                    <p class="text-base">
+                        * Some additional non-printable characters omitted
+                    </p>
+                </textarea>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Quantifiers</h1>
+            </section>
+
+            <section>
+                <h2>Optional</h2>
+
+                <p>Match zero or one of the preceding pattern</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>cars?</regex></td>
+                            <td><yes>car</yes> <yes>cars</yes></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>colo?ur</regex></td>
+                            <td><yes>color</yes> <yes>colour</yes></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Repitition</h2>
+
+                <p>Match zero, one or more of the preceding pattern</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Wont Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>[A-Z][a-z]+</regex></td>
+                            <td><yes>Arthur</yes> <yes>Ford</yes></td>
+                            <td><no>A</no> <no>F</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>[A-Z][a-z]*</regex></td>
+                            <td><yes>Arthur</yes> <yes>Ford</yes> <yes>A</yes> <yes>F</yes></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>0x[0-9A-F]+</regex></td>
+                            <td><yes>0x2A</yes> <yes>0x1092</yes></td>
+                            <td><no>0x</no> <no>0x1Q7X</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Specific Quantity</h2>
+
+                <p>Match specific quantities of the preceding pattern</p>
+
+                <table class="fragment" data-fragment-index="1">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Wont Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>H{2}GT{2}G</regex></td>
+                            <td><yes>HHGTTG</yes></td>
+                            <td><no>HGTG</no> <no>HHHGTTTG</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>No{1,3}!</regex></td>
+                            <td><yes>No!</yes> <yes>Noo!</yes> <yes>Nooo!</yes></td>
+                            <td><no>N!</no> <no>Noooo!</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Greediness</h2>
+
+                <p>By default quantifiers are greedy and will match as much text as they can.</p>
+                <p>Use <code>?</code> to make a quantifier ungreedy (a.k.a. l.azy).</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Pattern</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="2"><code>&lt;strong&gt;azPHP&lt;/strong&gt;</code></td>
+                            <td><regex><.+></regex></td>
+                            <td><yes>&lt;strong&gt;azPHP&lt;/strong&gt;</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td><regex><.+?></regex></td>
+                            <td><yes>&lt;strong&gt;</yes></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Grouping</h1>
+            </section>
+
+            <section>
+                <h2>Groups</h2>
+
+                <p>
+                    Groups allow you to apply quantifiers to a sub-pattern or to
+                    constrain alternation
+                </p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>([Hh]o){3}!</regex></td>
+                            <td><yes>Ho ho ho!</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td><regex>(base|foot)ball</regex></td>
+                            <td><yes>baseball</yes> <yes>football</yes></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Capturing Groups</h2>
+
+                <p>Captures the results of a sub-pattern as a numbered group</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Subject</th>
+                            <th>Group</th>
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="3"><regex>([A-Za-z]+) ([A-Za-z]+)</regex></td>
+                            <td rowspan="3"><code>Arthur Dent</code></td>
+                            <td class="font-mono">0</td>
+                            <td><yes>Arthur Dent</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-mono">1</td>
+                            <td><yes>Arthur</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-mono">2</td>
+                            <td><yes>Dent</yes></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Non-capturing Groups</h2>
+
+                <p>Group a sub-pattern without capturing the result</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Subject</th>
+                            <th>Group</th>
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="2">
+                                <regex>(?:[A-Za-z]+) ([A-Za-z]+)</regex>
+                            </td>
+
+                            <td rowspan="2">
+                                <code>Ford Prefect</code>
+                            </td>
+
+                            <td class="font-mono">0</td>
+                            <td><yes>Ford Prefect</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-mono">1</td>
+                            <td><yes>Prefect</yes></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Named Groups</h2>
+
+                <p>Captures the results of a sub-pattern as a named group</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Subject</th>
+                            <th>Group</th>
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">
+                                <regex>(?&lt;first&gt;[A-Za-z]+) (?&lt;last&gt;[A-Za-z]+)</regex>
+                            </td>
+
+                            <td rowspan="3">
+                                <code>Zaphod Beeblebrox</code>
+                            </td>
+
+                            <td class="font-mono">0</td>
+                            <td><yes>Zaphod Beeblebrox</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-mono">first</td>
+                            <td><yes>Zaphod</yes></td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-mono">last</td>
+                            <td><yes>Beeblebrox</yes></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Back References</h2>
+
+                <p>Use the result of a previous group as a pattern</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Wont Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex><([a-z]+)>.+?<\/\1></regex></td>
+                            <td>
+                                <yes>&lt;strong&gt;azPHP&lt;/strong&gt;</yes><br>
+                                <yes>&lt;small&gt;NodeAZ&lt;/small&gt;</yes><br>
+                            </td>
+                            <td><no>&lt;strong&gt;azPHP&lt;/stronk&gt;</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Regular ExPHPressions</h1>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Perl-Compatible Regular Expression (PCRE)
+
+                    > The PCRE library is a set of functions that implement
+                    > regular expression pattern matching using the same syntax
+                    > and semantics as Perl 5.
+
+                    <p class="text-base">
+                        <a href="https://www.pcre.org" target="_blank">
+                            https://www.pcre.org
+                        </a>
+                    </p>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    The PHP SPL includes several functions for working with
+                    regular expressions.
+
+                    `preg_filter` `preg_grep` `preg_last_error` `preg_match_all`
+                    `preg_match` `preg_quote` `preg_replace_callback_array`
+                    `preg_replace_callback` `preg_replace` `preg_split`
+
+                    <p class="text-base">
+                        <a href="https://www.php.net/manual/en/ref.pcre.php" target="_blank">
+                            https://www.php.net/manual/en/ref.pcre.php
+                        </a>
+                    </p>
+                </textarea>
+            </section>
+
+            <section>
+                <pre><code class="language-php" data-trim>
+                    preg_match( $pattern , $subject [, &$matches ] ): int
+                </code></pre>
+
+                <p class="fragment">
+                    Searches <code>$subject</code> for a match to the regular
+                    expression given in <code>$pattern</code>.
+                </p>
+
+                <p class="fragment">
+                    If <code>$matches</code> is provided, then it is filled with
+                    the results of search.
+                </p>
+
+                <p class="fragment">
+                    Returns <code>1</code> if <code>$pattern</code> matchest
+                    given <code>$subject</code>, <code>0</code> if it does not.
+                </p>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ```php
+                    $subject = "Sirius Cybernetics Corporation";
+
+                    preg_match('/[Cc]([a-z]+)/', $subject, $matches); // 1
+
+                    // $matches = [ "Cybernetics", "ybernetics" ]
+                    ```
+                </textarea>
+            </section>
+
+            <section>
+                <pre><code class="language-php" data-trim>
+                    preg_match_all( $pattern , $subject [, &$matches ] ): int
+                </code></pre>
+
+                <p class="fragment">
+                    Searches <code>$subject</code> for <i>all</i> matches to the
+                    regular expression given in <code>$pattern</code>.
+                </p>
+
+                <p class="fragment">
+                    If <code>$matches</code> is provided, then it is filled with
+                    the results of search.
+                </p>
+
+                <p class="fragment">
+                    Returns the number of full pattern matches (could be <code>0</code>).
+                </p>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ```php
+                    $subject = 'How much wood would a woodchuck chuck if a woodchuck could chuck wood?';
+
+                    preg_match_all('/wood([a-z]+)/', $subject, $matches); // 2
+
+                    // $matches = [
+                    //    [ "woodchuck", "woodchuck" ],
+                    //    [ "chuck", "chuck" ],
+                    // ]
+                    ```
+                </textarea>
+            </section>
+
+            <section>
+                <pre><code class="language-php" data-trim>
+                    preg_replace( $pattern , $replacement, $subject ): mixed
+                </code></pre>
+
+                <p class="fragment">
+                    Searches <code>$subject</code> for matches to <code>$pattern</code>
+                    and replaces them with <code>$replacement</code>.
+                </p>
+
+                <p class="fragment">
+                    If matches are found, the new <code>$subject</code> will be returned,<br>
+                    otherwise <code>$subject</code> will be returned unchanged
+                </p>
+            </section>
+
+            <section>
+                <pre class="fragment"><code class="language-php" data-trim>
+                    preg_replace('/([Pp])ink/', '\1urple', 'John Pinkerton'); // John Purpleerton
+                </code></pre>
+
+                <pre class="fragment"><code class="language-php" data-trim>
+                    preg_replace('/[^\d]/', null, '123-456-7890'); // 1234567890
+                </code></pre>
+            </section>
+
+            <section>
+                <pre class="fragment"><code class="language-php" data-trim>
+                    preg_replace('#(\d{2})/(\d{2})/(\d{4})#', '\3-\1-\2', '05/20/1986'); // 1986-05-20
+                </code></pre>
+
+                <pre class="fragment"><code class="language-php" data-trim>
+                    $pattern = ['/maroon/', '/gr[ae]y/', '/yellow|brown/'];
+                    $replacement = ['red', 'silver', 'ugly'];
+
+                    preg_replace($pattern, $replacement, 'The car was gray'); // The car was silver
+                </code></pre>
+            </section>
+
+            <section>
+                <pre><code class="language-php" data-trim>
+                    preg_split( $pattern, $subject ): array
+                </code></pre>
+
+                <p class="fragment">
+                    Split the given <code>$subject</code> by a string matched by <code>$pattern</code>.
+                </p>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ```php
+                    preg_split('/[ .-]/', '1 123.456-7890');
+
+                    // [ "1", "123", "456", "7890" ]
+                    ```
+                </textarea>
+            </section>
+
+            <section>
+                <pre><code class="language-php" data-trim>
+                    preg_quote( $str [, $delimiter ]): string
+                </code></pre>
+
+                <p class="fragment">
+                    Escapes regular expression chracters from a string.
+                </p>
+
+                <p class="fragment">
+                    If <code>$delimter</code> is specified it will also be escaped.
+                </p>
+
+                <p class="fragment">
+                    Returns the escaped string.
+                </p>
+            </section>
+
+            <section>
+                <pre class="fragment"><code class="language-php" data-trim>
+                    preg_quote('[Foo]+Bar'); // \[Foo\]\+Bar
+                </code></pre>
+
+                <pre class="fragment"><code class="language-php" data-trim>
+                    preg_quote('/path/to/file.txt', '/'); // \/path\/to\/file\.txt
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <img src="https://media.giphy.com/media/ne3xrYlWtQFtC/giphy.gif" class="rounded-lg shadow mx-auto w-3/4">
+        </section>
+
+        <section>
+            <section>
+                <h1>Exercises</h1>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ### Phone Numbers
+
+                    <yes>123-456-7890</yes>
+                    <yes>1 (123) 456-7890</yes>
+                    <yes>1234567890</yes>
+                    <yes>+1 123 456 7890</yes>
+
+                    <no>456 7890</no>
+                    <no>+42 12 34567890</no>
+                    <no>123-456-7890 Ext. 1337</no>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    <regex>(?:\\+?1)?[- ]?\\(?\d{3}\\)?[- ]?\d{3}[- ]?\d{4}</regex>
+
+                    <https://regexr.com/5e0ap>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ### Time
+
+                    <yes>5:30 AM</yes>
+                    <yes>12:00PM</yes>
+                    <yes>10:10 am</yes>
+                    <yes>2:45pm</yes>
+                    <yes>4 PM</yes>
+
+                    <no>13:00 AM</no>
+                    <no>10:99 pm</no>
+                    <no>13:37</no>
+                    <no>1234</no>
+                    <no>532 AM</no>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    <regex>(0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]</regex>
+
+                    <https://regexr.com/5e0as>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    <h2>URLs</h2>
+
+                    <p>
+                        <yes>www.google.com</yes>
+                        <yes>https://regexr.com/5dubs</yes>
+                        <yes>http://azphp.org/#foobar</yes>
+                        <yes>https://example.com/</yes>
+                        <yes>https://api.example.net:1337/some/page?foo=bar&baz=qux</yes>
+                        <yes>ftp://user:password@fileserver.com</no>
+                    </p>
+
+                    <a href="https://www.urlencoder.io/learn/#introduction" target="_blank">
+                        https://www.urlencoder.io/learn/
+                    </a>
+                </textarea>
+            </section>
+
+            <section>
+                <regex>([a-z]+:\/\/)?([\w]+(:.+)?@)?[\w.~-]+(:\d+)?(\/[\w\/.~-]*)?(\?[\w=&.~-]*)?(#[\w.~-]*)?</regex>
+
+                <p>
+                    <a href="https://regexr.com/5dubs">https://regexr.com/5dubs</a>
+                </p>
+            </section>
+
+            <section>
+                <h2>
+                    <a href="https://regexcrossword.com" target="_blank">https://regexcrossword.com</a>
+                </h2>
+            </section>
+        </section>
+
+        <section>
+            <img src="https://imgs.xkcd.com/comics/regular_expressions.png" class="shadow mx-auto">
+        </section>
+
+        <section>
+            <section>
+                <h1>References</h1>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    <https://www.regular-expressions.info>
+
+                    <https://www.php.net/manual/en/pcre.pattern.php>
+
+                    ---
+
+                    <https://regexr.com>
+
+                    ---
+
+                    <https://revealjs.com>
+
+                    <https://tailwindcss.com>
+                </textarea>
+            </section>
         </section>
     </div>
 </div>
 
-<script src="dist/slides.js"></script>
+<script src="dist/deck.js"></script>
