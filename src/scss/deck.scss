@@ -9,10 +9,6 @@
 // Reveal.js
 @import "~reveal.js/dist/reveal.css";
 
-.reveal > .controls button {
-    @apply text-gray-600;
-}
-
 // Highlight.js theme
 @import "~highlight.js/scss/ocean.scss";
 

@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="dist/deck.css">
 
-<div class="reveal bg-gray-800 text-gray-100">
+<div class="reveal">
     <div class="slides">
         <section>
             <h1 class="mb-8">
@@ -18,6 +18,12 @@
                 Or how I learned to stop worrying and love the<br>
                 <regex>[Rr]eg(ular)? ?[Ee]xp?(ression)?</regex>
             </p>
+
+            <aside class="notes">
+                <a href="https://regexr.com/5e0g4" target="_blank">
+                    https://regexr.com/5e0g4
+                </a>
+            </aside>
         </section>
 
         <section>
@@ -60,10 +66,18 @@
 
             <section>
                 <img src="images/confused.gif" class="rounded-lg shadow mx-auto w-2/3">
+
+                <aside class="notes">
+                    And now we're all experts.
+                </aside>
             </section>
 
             <section>
                 <img src="images/dont-panic.png" class="mx-auto w-2/3">
+
+                <aside class="notes">
+                    Easier to explain by example than definition.
+                </aside>
             </section>
         </section>
 
@@ -945,79 +959,194 @@
                 <h1>Exercises</h1>
             </section>
 
-            <section data-markdown>
-                <textarea data-template>
-                    ### Phone Numbers
+            <section >
+                <h2>Phone Numbers</h2>
 
+                <p>
                     <yes>123-456-7890</yes>
                     <yes>1 (123) 456-7890</yes>
                     <yes>1234567890</yes>
                     <yes>+1 123 456 7890</yes>
+                </p>
 
+                <p>
                     <no>456 7890</no>
                     <no>+42 12 34567890</no>
                     <no>123-456-7890 Ext. 1337</no>
-                </textarea>
+                </p>
+
+                <aside class="notes">
+                    <a href="https://regexr.com/5ek31" target="_blank">
+                        https://regexr.com/5ek31
+                    </a>
+
+                    <ol>
+                        <li>
+                            Pick a format and match it (1234567890)
+
+                            <pre><code data-trim>
+                                \d{10}
+                            </code></pre>
+                        </li>
+
+                        <li>
+                            Match a number dash separators (123-456-7890)
+
+                            <pre><code data-trim>
+                                \d{3}-\d{3}-\d{4}
+                            </code></pre>
+                        </li>
+
+                        <li>
+                            Match country code, spaces and parentheses (1 (123) 456-7890)
+
+                            <pre><code data-trim>
+                                1?[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}
+                            </code></pre>
+                        </li>
+
+                        <li>
+                            Optional <code>+</code> and prevent extra text
+
+                            <pre><code data-trim>
+                                ^(?:\+?1)?[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$
+                            </code></pre>
+                        </li>
+                    </ol>
+
+                    </ol>
+                </aside>
             </section>
 
             <section data-markdown>
                 <textarea data-template>
                     <regex>(?:\\+?1)?[- ]?\\(?\d{3}\\)?[- ]?\d{3}[- ]?\d{4}</regex>
 
-                    <https://regexr.com/5e0ap>
+                    <a href="https://regexr.com/5e0ap" target="_blank">
+                        https://regexr.com/5e0ap
+                    </a>
                 </textarea>
             </section>
 
-            <section data-markdown>
-                <textarea data-template>
-                    ### Time
+            <section>
+                <h2>Time</h2>
 
+                <p>
                     <yes>5:30 AM</yes>
                     <yes>12:00PM</yes>
                     <yes>10:10 am</yes>
                     <yes>2:45pm</yes>
                     <yes>4 PM</yes>
+                </p>
 
+                <p>
                     <no>13:00 AM</no>
                     <no>10:99 pm</no>
                     <no>13:37</no>
                     <no>1234</no>
                     <no>532 AM</no>
-                </textarea>
+                </p>
+
+                <aside class="notes">
+                    <a href="https://regexr.com/5ek34" target="_blank">
+                        https://regexr.com/5ek34
+                    </a>
+
+                    <li>
+                        Pick a format and match it (5:30 AM)
+
+                        <pre><code data-trim>
+                            (\d{1,2}):\d{2} ?(AM|PM)
+                        </code></pre>
+                    </li>
+
+                    <li>
+                        Capture additional AM/PM formats (10:10 am, 2:45pm)
+
+                        <pre><code data-trim>
+                            (\d{1,2}):\d{2} ?[AaPp][Mm]
+                        </code></pre>
+                    </li>
+
+                    <li>
+                        Prevent hours and minutes from matching invalid numbers
+
+                        <pre><code data-trim>
+                            ([1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]
+                        </code></pre>
+                    </li>
+
+                    <li>
+                        Make minutes optional
+
+                        <pre><code data-trim>
+                            (0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]
+                        </code></pre>
+                </li>
+                </aside>
             </section>
 
             <section data-markdown>
                 <textarea data-template>
                     <regex>(0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]</regex>
 
-                    <https://regexr.com/5e0as>
+                    <a href="https://regexr.com/5e0as" target="_blank">
+                        https://regexr.com/5e0as
+                    </a>
                 </textarea>
             </section>
 
-            <section data-markdown>
-                <textarea data-template>
-                    <h2>URLs</h2>
+            <section>
+                <h2>URLs</h2>
 
-                    <p>
-                        <yes>www.google.com</yes>
-                        <yes>https://regexr.com/5dubs</yes>
-                        <yes>http://azphp.org/#foobar</yes>
-                        <yes>https://example.com/</yes>
-                        <yes>https://api.example.net:1337/some/page?foo=bar&baz=qux</yes>
-                        <yes>ftp://user:password@fileserver.com</no>
-                    </p>
+                <p>
+                    <yes>www.google.com</yes>
+                    <yes>http://example.com/</yes>
+                    <br>
+                    <yes>https://regexr.com/5dubs</yes>
+                    <yes>https://www.azphp.org/#foobar</yes>
+                    <yes>https://api.example.net:1337/some/page?foo=bar&baz=qux</yes>
+                    <yes>ftp://user:password@fileserver.com</no>
+                </p>
 
-                    <a href="https://www.urlencoder.io/learn/#introduction" target="_blank">
-                        https://www.urlencoder.io/learn/
+                <a href="https://www.urlencoder.io/learn/#introduction" target="_blank">
+                    https://www.urlencoder.io/learn/
+                </a>
+
+                <aside class="notes">
+                    <a href="https://regexr.com/5ek37" target="_blank">
+                        https://regexr.com/5ek37
                     </a>
-                </textarea>
+
+                    <li>
+                        Pick a format and match it (www.google.com)
+
+                        <pre><code data-trim>
+                            [\w.~-]+
+                        </code></pre>
+                    </li>
+
+                    <li>
+                        Capture an HTTP protocol
+
+                        <pre><code data-trim>
+                            (https?:\/\/)?[\w.~-]+
+                        </code></pre>
+                    </li>
+
+                    <li>
+                        ...
+                    </li>
+                </aside>
             </section>
 
             <section>
                 <regex>([a-z]+:\/\/)?([\w]+(:.+)?@)?[\w.~-]+(:\d+)?(\/[\w\/.~-]*)?(\?[\w=&.~-]*)?(#[\w.~-]*)?</regex>
 
                 <p>
-                    <a href="https://regexr.com/5dubs">https://regexr.com/5dubs</a>
+                    <a href="https://regexr.com/5dubs" target="_blank">
+                        https://regexr.com/5dubs
+                    </a>
                 </p>
             </section>
 

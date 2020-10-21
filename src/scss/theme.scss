@@ -1,3 +1,19 @@
+.reveal {
+    @apply bg-gray-800 text-gray-100;
+
+    .controls button {
+        @apply text-gray-600;
+    }
+
+    .progress {
+        @apply bg-gray-700;
+
+        span {
+            @apply bg-gray-600;
+        }
+    }
+}
+
 h1, h2, h3, h4, h5, h6 {
     @apply font-extralight;
 }
