@@ -239,42 +239,6 @@
                 </table>
             </section>
 
-            <section >
-                <h2>Alternation</h2>
-
-                <p>Matches the first complete pattern from left to right</p>
-
-                <table class="fragment">
-                    <thead>
-                        <tr>
-                            <th>Pattern</th>
-                            <th>Will Match</th>
-                            <th>Won't Match</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td><regex>arthur|ford|zaphod</regex></td>
-                            <td><yes>arthur</yes><yes>ford</yes><yes>zaphod</yes></td>
-                            <td><no>marvin</no></td>
-                        </tr>
-
-                        <tr class="fragment">
-                            <td><regex>cat|dog food</regex></td>
-                            <td><yes>cat</yes> <yes>dog food</yes></td>
-                            <td><no>cat food</no</td>
-                        </tr>
-
-                        <tr class="fragment">
-                            <td><regex>(cat|dog) food</regex></td>
-                            <td><yes>cat food</yes> <yes>dog food</yes></td>
-                            <td><no>hampster food</no></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
             <section>
                 <h2>Set</h2>
 
@@ -359,6 +323,42 @@
                 </table>
             </section>
 
+            <section >
+                <h2>Alternation</h2>
+
+                <p>Matches the first complete pattern from left to right</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Won't Match</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>arthur|ford|zaphod</regex></td>
+                            <td><yes>arthur</yes><yes>ford</yes><yes>zaphod</yes></td>
+                            <td><no>marvin</no></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>cat|dog food</regex></td>
+                            <td><yes>cat</yes> <yes>dog food</yes></td>
+                            <td><no>cat food</no</td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>(cat|dog) food</regex></td>
+                            <td><yes>cat food</yes> <yes>dog food</yes></td>
+                            <td><no>hampster food</no></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
             <section>
                 <h2>Anchors</h2>
 
@@ -375,21 +375,21 @@
 
                     <tbody>
                         <tr>
-                            <td><regex>^foo</regex></td>
-                            <td><yes>foo</yes> <yes>foolish</yes> <yes>football</yes></td>
-                            <td><no>tomfoolery</no> <no>buffoon</no></td>
+                            <td><regex>^art</regex></td>
+                            <td><yes>art</yes> <yes>arthur</yes></td>
+                            <td><no>dart</no> <no>particle</no></td>
                         </tr>
 
                         <tr class="fragment">
-                            <td><regex>bar$</regex></td>
-                            <td><yes>bar</yes> <yes>sandbar</yes> <yes>taskbar</yes></td>
-                            <td><no>bartender</no> <no>embark</no></td>
+                            <td><regex>art$</regex></td>
+                            <td><yes>art</yes> <yes>dart</yes></td>
+                            <td><no>arthur</no> <no>particle</no></td>
                         </tr>
 
                         <tr class="fragment">
                             <td><regex>^art$</regex></td>
                             <td><yes>art</yes></td>
-                            <td><no>artistic</no> <no>dart</no> <no>particle</no></td>
+                            <td><no>arthur</no> <no>dart</no> <no>particle</no></td>
                         </tr>
                     </tbody>
                 </table>
@@ -411,21 +411,21 @@
 
                     <tbody>
                         <tr>
-                            <td><regex>\bfoo</regex></td>
-                            <td><yes>foo</yes> <yes>football</yes></td>
-                            <td><no>tomfoolery</no></td>
+                            <td><regex>\bford</regex></td>
+                            <td><yes>ford prefect</yes> <yes>fordoing</yes></td>
+                            <td><no>affordable</no> <no>oxford</no></td>
                         </tr>
 
                         <tr class="fragment">
-                            <td><regex>bar\b</regex></td>
-                            <td><yes>bar</yes> <yes>foo-bar</yes></td>
-                            <td><no>bartender</no></td>
+                            <td><regex>ford\b</regex></td>
+                            <td><yes>ford prefect</yes> <yes>oxford</yes></td>
+                            <td><no>affordable</no> <no>fordoing</no></td>
                         </tr>
 
                         <tr class="fragment">
-                            <td><regex>\bbaz\b</regex></td>
-                            <td><yes>baz</yes> <yes>foo baz bar</yes></td>
-                            <td><no>bazooka</no></td>
+                            <td><regex>\bford\b</regex></td>
+                            <td><yes>ford</yes> <yes>ford prefect</yes></td>
+                            <td><no>affordable</no> <no>fordoing</no> <no>oxford</no></td>
                         </tr>
                     </tbody>
                 </table>
@@ -470,8 +470,8 @@
 
                     <tbody>
                         <tr>
-                            <td><regex>cars?</regex></td>
-                            <td><yes>car</yes> <yes>cars</yes></td>
+                            <td><regex>vogons?</regex></td>
+                            <td><yes>vogon</yes> <yes>vogons</yes></td>
                         </tr>
 
                         <tr class="fragment">
@@ -815,16 +815,14 @@
                 </p>
             </section>
 
-            <section data-markdown>
-                <textarea data-template>
-                    ```php
+            <section>
+                <pre><code class="language-php" data-trim>
                     $subject = "Sirius Cybernetics Corporation";
 
                     preg_match('/[Cc]([a-z]+)/', $subject, $matches); // 1
 
                     // $matches = [ "Cybernetics", "ybernetics" ]
-                    ```
-                </textarea>
+                </code></pre>
             </section>
 
             <section>
@@ -847,9 +845,8 @@
                 </p>
             </section>
 
-            <section data-markdown>
-                <textarea data-template>
-                    ```php
+            <section>
+                <pre><code class="language-php" data-trim>
                     $subject = 'How much wood would a woodchuck chuck if a woodchuck could chuck wood?';
 
                     preg_match_all('/wood([a-z]+)/', $subject, $matches); // 2
@@ -858,8 +855,7 @@
                     //    [ "woodchuck", "woodchuck" ],
                     //    [ "chuck", "chuck" ],
                     // ]
-                    ```
-                </textarea>
+                </code></pre>
             </section>
 
             <section>
@@ -911,14 +907,12 @@
                 </p>
             </section>
 
-            <section data-markdown>
-                <textarea data-template>
-                    ```php
+            <section>
+                <pre><code class="language-php" data-trim>
                     preg_split('/[ .-]/', '1 123.456-7890');
 
                     // [ "1", "123", "456", "7890" ]
-                    ```
-                </textarea>
+                </code></pre>
             </section>
 
             <section>
