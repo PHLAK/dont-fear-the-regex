@@ -102,6 +102,12 @@
                     <regex class="text-6xl"> ... </regex>
                     <code class="text-4xl fragment" data-fragment-index="2">@ ... @</code>
                 </div>
+
+                <aside class="notes" data-markdown>
+                    The most common delimiter by far is the forward slash
+
+                    Other common delimiters include hash (or number) symbols and at signs.
+                </aside>
             </section>
 
             <section data-markdown>
@@ -946,6 +952,10 @@
 
         <section>
             <img src="https://media.giphy.com/media/ne3xrYlWtQFtC/giphy.gif" class="rounded-lg shadow mx-auto w-3/4">
+
+            <aside class="notes" data-markdown>
+                Okay **NOW** we're all experts.
+            </aside>
         </section>
 
         <section>
@@ -1007,8 +1017,6 @@
                             </code></pre>
                         </li>
                     </ol>
-
-                    </ol>
                 </aside>
             </section>
 
@@ -1046,37 +1054,39 @@
                         https://regexr.com/5ek34
                     </a>
 
-                    <li>
-                        Pick a format and match it (5:30 AM)
+                    <ol>
+                        <li>
+                            Pick one or two formats and match them (5:30 AM, 12:00PM)
 
-                        <pre><code data-trim>
-                            (\d{1,2}):\d{2} ?(AM|PM)
-                        </code></pre>
-                    </li>
+                            <pre><code data-trim>
+                                \d{1,2}:\d{2} ?(AM|PM)
+                            </code></pre>
+                        </li>
 
-                    <li>
-                        Capture additional AM/PM formats (10:10 am, 2:45pm)
+                        <li>
+                            Capture additional AM/PM formats (10:10 am, 2:45pm)
 
-                        <pre><code data-trim>
-                            (\d{1,2}):\d{2} ?[AaPp][Mm]
-                        </code></pre>
-                    </li>
+                            <pre><code data-trim>
+                                \d{1,2}:\d{2} ?[AaPp][Mm]
+                            </code></pre>
+                        </li>
 
-                    <li>
-                        Prevent hours and minutes from matching invalid numbers
+                        <li>
+                            Prevent hours and minutes from matching invalid numbers
 
-                        <pre><code data-trim>
-                            ([1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]
-                        </code></pre>
-                    </li>
+                            <pre><code data-trim>
+                                ([1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]
+                            </code></pre>
+                        </li>
 
-                    <li>
-                        Make minutes optional
+                        <li>
+                            Make minutes optional
 
-                        <pre><code data-trim>
-                            (0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]
-                        </code></pre>
-                </li>
+                            <pre><code data-trim>
+                                (0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]
+                            </code></pre>
+                        </li>
+                    </ol>
                 </aside>
             </section>
 
@@ -1112,25 +1122,27 @@
                         https://regexr.com/5ek37
                     </a>
 
-                    <li>
-                        Pick a format and match it (www.google.com)
+                    <ol>
+                        <li>
+                            Pick a format and match it (www.google.com)
 
-                        <pre><code data-trim>
-                            [\w.~-]+
-                        </code></pre>
-                    </li>
+                            <pre><code data-trim>
+                                [\w.~-]+
+                            </code></pre>
+                        </li>
 
-                    <li>
-                        Capture an HTTP protocol
+                        <li>
+                            Capture an HTTP protocol
 
-                        <pre><code data-trim>
-                            (https?:\/\/)?[\w.~-]+
-                        </code></pre>
-                    </li>
+                            <pre><code data-trim>
+                                (https?:\/\/)?[\w.~-]+
+                            </code></pre>
+                        </li>
 
-                    <li>
-                        ...
-                    </li>
+                        <li>
+                            ...
+                        </li>
+                    </ol>
                 </aside>
             </section>
 
