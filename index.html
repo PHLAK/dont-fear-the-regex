@@ -1022,11 +1022,13 @@
 
             <section data-markdown>
                 <textarea data-template>
-                    <regex>(?:\\+?1)?[- ]?\\(?\d{3}\\)?[- ]?\d{3}[- ]?\d{4}</regex>
+                    <regex class="text-4xl">(?:\\+?1)?[- ]?\\(?\d{3}\\)?[- ]?\d{3}[- ]?\d{4}</regex>
 
-                    <a href="https://regexr.com/5e0ap" target="_blank">
-                        https://regexr.com/5e0ap
-                    </a>
+                    <aside class="notes">
+                        <a href="https://regexr.com/5e0ap" target="_blank">
+                            https://regexr.com/5e0ap
+                        </a>
+                    </aside>
                 </textarea>
             </section>
 
@@ -1092,11 +1094,13 @@
 
             <section data-markdown>
                 <textarea data-template>
-                    <regex>(0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]</regex>
+                    <regex class="text-4xl">(0?[1-9]|1[0-2])(:[0-5][0-9])? ?[AaPp][Mm]</regex>
 
-                    <a href="https://regexr.com/5e0as" target="_blank">
-                        https://regexr.com/5e0as
-                    </a>
+                    <aside class="notes">
+                        <a href="https://regexr.com/5e0as" target="_blank">
+                            https://regexr.com/5e0as
+                        </a>
+                    </aside>
                 </textarea>
             </section>
 
@@ -1113,9 +1117,11 @@
                     <yes>ftp://user:password@fileserver.com</no>
                 </p>
 
-                <a href="https://www.urlencoder.io/learn/#introduction" target="_blank">
-                    https://www.urlencoder.io/learn/
-                </a>
+                <p>
+                    <a href="https://www.urlencoder.io/learn/#introduction" target="_blank">
+                        https://www.urlencoder.io/learn/
+                    </a>
+                </p>
 
                 <aside class="notes">
                     <a href="https://regexr.com/5ek37" target="_blank">
@@ -1126,34 +1132,58 @@
                         <li>
                             Pick a format and match it (www.google.com)
 
-                            <pre><code data-trim>
-                                [\w.~-]+
-                            </code></pre>
+                            <p>
+                                <code>[\w.~-]+</code>
+                            </p>
                         </li>
 
                         <li>
-                            Capture an HTTP protocol
+                            Capture the protocol (http, https, ftp, etc.)
 
-                            <pre><code data-trim>
-                                (https?:\/\/)?[\w.~-]+
-                            </code></pre>
+                            <p>
+                                <code><u>([a-z]+:\/\/)?</u>[\w.~-]+</code>
+                            </p>
                         </li>
 
                         <li>
-                            ...
+                            Capture opional port and path (:1337/some/path)
+
+                            <p>
+                                <code>([a-z]+:\/\/)?[\w.~-]+<u>(:\d+)?(\/[\w\/.~-]*)?</u></code>
+                            </p>
+                        </li>
+
+                        <li>
+                            Capture the query string and hash string
+
+                            <p>
+                                <code>([a-z]+:\/\/)?[\w.~-]+(:\d+)?(\/[\w\/.~-]*)?<u>(\?[\w=&.~-]*)?(#[\w.~-]*)?</u></code>
+                            </p>
+                        </li>
+
+                        <li>
+                            And the username and password
+
+                            <p>
+                                <code>
+                                    ([a-z]+:\/\/)?<u>([\w]+(:.+)?@)?</u>[\w.~-]+(:\d+)?(\/[\w\/.~-]*)?(\?[\w=&.~-]*)?(#[\w.~-]*)?
+                                </code>
+                            </p>
                         </li>
                     </ol>
                 </aside>
             </section>
 
             <section>
-                <regex>([a-z]+:\/\/)?([\w]+(:.+)?@)?[\w.~-]+(:\d+)?(\/[\w\/.~-]*)?(\?[\w=&.~-]*)?(#[\w.~-]*)?</regex>
+                <p class="text-xl">
+                    <regex>([a-z]+:\/\/)?([\w]+(:.+)?@)?[\w.~-]+(:\d+)?(\/[\w\/.~-]*)?(\?[\w=&.~-]*)?(#[\w.~-]*)?</regex>
+                </p>
 
-                <p>
+                <aside class="notes">
                     <a href="https://regexr.com/5dubs" target="_blank">
                         https://regexr.com/5dubs
                     </a>
-                </p>
+                </aside>
             </section>
 
             <section>
