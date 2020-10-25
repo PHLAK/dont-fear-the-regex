@@ -766,6 +766,53 @@
                     </tbody>
                 </table>
             </section>
+
+            <section>
+                <h2>Lookaheads</h2>
+
+                <p>Match a sub-pattern before/after the main expression without including it in the result.</p>
+
+                <table class="fragment">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Will Match</th>
+                            <th>Wont Match</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><regex>[Aa]rthur(?= [Dd]ent)</regex></td>
+                            <td><yes>Arthur Dent</yes></td>
+                            <td><no>Arthur Prefect</no></td>
+                            <td><code>Arthur</code></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>[Aa]rthur(?! [Dd]ent)</regex></td>
+                            <td><yes>Arthur Prefect</yes></td>
+                            <td><no>Arthur Dent</no></td>
+                            <td><code>Arthur</code></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>(?&lt;=[Ff]ord )[Pp]refect</regex></td>
+                            <td><yes>Ford Prefect</yes></td>
+                            <td><no>Arthur Prefect</no></td>
+                            <td><code>Prefect</code></td>
+                        </tr>
+
+                        <tr class="fragment">
+                            <td><regex>(?&lt;![Ff]ord )[Pp]refect</regex></td>
+                            <td><yes>Arhthur Prefect</yes></td>
+                            <td><no>Ford Prefect</no></td>
+                            <td><code>Prefect</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </section>
 
         <section>
