@@ -768,7 +768,7 @@
             </section>
 
             <section>
-                <h2>Lookaheads</h2>
+                <h2>Lookarounds</h2>
 
                 <p>Match a sub-pattern before/after the main expression without including it in the result.</p>
 
@@ -968,9 +968,7 @@
 
             <section>
                 <pre><code class="language-php" data-trim>
-                    preg_split('/[ .-]/', '1 123.456-7890');
-
-                    // [ "1", "123", "456", "7890" ]
+                    preg_split('/[ .-]/', '1 123.456-7890'); // [ "1", "123", "456", "7890" ]
                 </code></pre>
             </section>
 
